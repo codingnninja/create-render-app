@@ -1,5 +1,5 @@
 import {CurrentSongInformation} from './CurrentSongInformation';
-import { $register, stringify } from '../../render';
+import { $register, stringify } from '@codingnninja/render';
 import { songs } from '../playlist';
 
 export const CurrentSong = (currentSong) => {

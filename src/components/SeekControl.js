@@ -1,6 +1,6 @@
 import {ProgressIndicator} from './ProgressIndicator';
 import {Volume} from './Volume';
-import { $register, stringify } from '../../render';
+import { $register, stringify } from '@codingnninja/render';
 
 export const SeekControl = (song) => {
     return `

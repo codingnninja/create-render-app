@@ -1,5 +1,5 @@
 import {Songs} from './Songs';
-import { $register, stringify } from '../../render';
+import { $register, stringify } from '@codingnninja/render';
 import { songs } from '../playlist';
 
 export const Playlist = () => {

@@ -1,5 +1,7 @@
 export const Repeat = (status=false) => {
-  $state.repeat = status;
+  const state = $state();
+  state.update('repeat', status);
+
   return `
     <div id="repeat">
       <button class="btn-icon toggle">

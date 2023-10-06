@@ -1,7 +1,7 @@
   const changeVolume = function (elements) {
     const [audio, volume, volumeIcon] = elements;
     audio.volume = volume.value;
-    getState().volume = volume.value;
+    $state().volume = volume.value;
   
     if(audio.volume <= 0.1) {
       volumeIcon.textContent = 'volume_mute';
@@ -12,7 +12,7 @@
     } 
   }
  export const Volume = (song) => {
-    const volume = $state.volume ? $state.volume : 1;
+    const volume = $state().volume ? $state().volume : 1;
     return `
       <div class="volume" id="volume">
         <button class="btn-icon volume-btn">
@@ -28,10 +28,7 @@
             class="range"
             id="volume-${song.id}"
             onchange="$trigger(${changeVolume}, '#audio-${song.id}, #volume-${song.id}, #volume-icon')"
-            data-range
-            data-seek
           />
-  
           <div class="range-fill"></div>
         </div>
       </div>

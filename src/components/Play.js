@@ -1,21 +1,18 @@
 'use strict'
 
-import {stringify} from '../../render';
+import {stringify} from '@codingnninja/render';
 
-const playController = (song) =>{
-  
-}
  export const Play = (song) => {
    const [audio] = $select(`#audio-${song.id}`);   
-   clearInterval($state.playingInterval)
+   clearInterval($state().playingInterval)
 
     if(audio){
-      audio.volume = $state.volume ? $state.volume : 1;
+      audio.volume = $state().volume ? $state().volume : 1;
       audio.paused ? audio.play() : audio.pause();
       song.isPlaying = audio.paused ? false : true; 
-      $render(Songs, $utils.setPlayingState(song));
+      $render(Songs, $use().setPlayingState(song));
       if(song.isPlaying){
-        $state.playingInterval = setInterval(function(){ $utils.updateRunningTime(song)}, 900)
+        $state().playingInterval = setInterval(function(){ $use().updateRunningTime(song)}, 900)
       }
     }
 

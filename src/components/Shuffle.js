@@ -1,6 +1,7 @@
-  
 export const Shuffle = (status=false) => {
-  $state.shuffle = status;
+  const state = $state();
+  state.update('shuffle', status);
+
   return `
     <div id="shuffle">
       <button class="btn-icon toggle">

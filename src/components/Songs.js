@@ -1,5 +1,5 @@
 import {Audio} from './Audio';
-import { $register, stringify } from '../../render';
+import { $register, stringify } from '@codingnninja/render';
 
 export const Songs = (mySongs) => {
   const songList = mySongs.map((song) =>`<Audio song=${stringify(song)} />`);

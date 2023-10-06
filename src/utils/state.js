@@ -1,103 +1,102 @@
-//set
-function makeSetGlobal(_set, _get){
-  if(window['set_$123police']){
+function makeSetGlobal(){
+  if(window.$use || window.$state){
     return;
   }
-  window.set_$123police = _set;
-  window.get_$123police = _get;
-  console.log(window);
+  window.$use = $use;
+  window.$state = $state;
+  window.$resetState = resetState;
+  window.$getPasswordScope = get;
 }
-export function set(name, value){  
-    makeSetGlobal(set, get);
+
+export function set(name, value){
+    const passwordScope = {...value} 
     const password = '$123police';
-    if(window[password] === undefined){
+
+    if(name === '$state') {
+      passwordScope.subscribe = subscribe,
+      passwordScope.update = update,
+      passwordScope.observers = []
+    }
+    if(window[password] === undefined){       
         window[password] = {};
     }    
     if(window[password][name]){
         throw('Already exist. To override it, use resetState() or resetUtils');
     }
-    window[password][name] = value;
-    window[name] = value;
+    window[password][name] = passwordScope;
+    makeSetGlobal();
     return value;
 }
 export function setState(value) {
-    return set('$state', value);
+  return set('$state', value);
 }
 export function setUtils(value) {
-    return set('$utils', value);
+    return set('$use', value);
 }
-
-function setObserver(Component, property){
-  
-}
-//get
 export function get(name){
-    const password = '$123police';
-    if(window[password] === undefined){
-        return {};
-    }
-    return window[password][name];
+  const password = '$123police';
+  if(window[password] === undefined){
+      return {};
+  }
+  const passwordScope = window[password][name];
+  return passwordScope;
 }
-
-export function getState(){
-    return get('$state');
+export function $state(){
+  return $getPasswordScope('$state');
 }
-export function $utils(){
-    return get('$utils');
+export function $use(){
+  return $getPasswordScope('$use');
 }
-
 //reset
-export function reset(name, value){
-    const password = '$123police';
-    const passwordScope = {};
-    passwordScope[name] = value;
-    window[password] = passwordScope;
-    return value;
-}
+/* export function reset(name, value){
+    
+} */
 
-export function resetState(value){
-    return reset('state', value);
-}
+/* export function resetUtils(value){
+  return reset('$use', value);
+}   */
 
-export function resetUtils(value){
-    return reset('utils')
+function resetState(value){
+  const password = '$123police';
+  const state = $state();
+  let passwordScope = {...state, ...value};
+  window[password]['$state'] = passwordScope;
+  return value;
 }
-
-// State object
-const state = {
-  data: getState(),
-  observers: {},
-};
-  
-function subscribeToState(component, property) {
-  if (!state.observers[property]) {
+function subscribe(component, property) {
+  const state = $state()
+  if (state.hasOwnProperty(property)) {
     state.observers[property] = [];
   }
-
   state.observers[property].push(component);
+  $resetState(state);
 }
-  
-  // Function to update a property and notify subscribed components
-  function updateProperty(property, value) {
-    if (state.data[property] !== value) {
-      state.data[property] = value;
-      notifyObservers(property);
-    }
+export function update(property, value) {
+  const state = $state();
+  if (state[property] !== value) {
+    state[property] = value;
+    $resetState(state);
+    notifyObservers(property);
   }
-  
-  // Function to notify observers when a property changes
-  function notifyObservers(property) {
-    if (state.observers[property]) {
-      state.observers[property].forEach((component) => {
-        component.update(state.data[property]);
-      });
-    }
+}
+export function notifyObservers(property) {
+  const state = $state();
+  if (state.observers[property]) {
+    state.observers[property].forEach((component) => {
+      component(state[property]);
+    });
   }
-  export function useContext(property) {
-    return window.$state[property];
-  }
+}
+export function createContext(parentComponent, value){
+  const component = parentComponent.name;
+  const contextName = component.charAt(0).toLowerCase() + component.slice(1)
+  const state = $state();
+  state[`${contextName}Context`] = value;
+  $resetState(state);
+}
+export function useContext(parentComponent) {
+  const component = parentComponent.name;
+  const contextName = component.charAt(0).toLowerCase() + component.slice(1)
+  return $state()[`${contextName}Context`] ;
+}
 
-  function useCallback(value) {
-     if(typeof value != 'function'){return};
-     return window.$utils[value.name];
-  }

@@ -1,5 +1,5 @@
 import {CurrentSong} from './CurrentSong';
-import { $register } from '../../render';
+import { $register } from '@codingnninja/render';
 
 
 export const Player = () => {
