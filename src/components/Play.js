@@ -27,22 +27,3 @@ import {stringify} from '@codingnninja/render';
       </div>
     `;
   }
-
-//boolean toggle  
-// const isPlaying = state.isPlaying;
-// state.isPlaying = state.isPlaying ? false : true;
-
-//enum toggle
-
-// export const Play = (song) => {
-//   return `
-//     <div id="play">
-//       <button class="btn-icon play ${song.isPlaying ? 'play-active': ''}">
-//         <span class="material-symbols-rounded default-icon"
-//           onclick="$trigger(${song.isPlaying ? pause : play}, '#audio-${song.id}', '${stringify(song)}')">
-//             ${song.isPlaying ? 'pause' : 'play_arrow'}
-//         </span>
-//       </button>
-//     </div>
-//   `;
-// }
