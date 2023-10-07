@@ -1,4 +1,4 @@
-function makeSetGlobal(){
+function globalizeAccessors(){
   if(window.$use || window.$state){
     return;
   }
@@ -17,22 +17,28 @@ export function set(name, value){
       passwordScope.update = update,
       passwordScope.observers = []
     }
+
     if(window[password] === undefined){       
         window[password] = {};
-    }    
+    }
+
     if(window[password][name]){
         throw('Already exist. To override it, use resetState() or resetUtils');
     }
+
     window[password][name] = passwordScope;
-    makeSetGlobal();
+    globalizeAccessors();
     return value;
 }
+
 export function setState(value) {
   return set('$state', value);
 }
+
 export function setUtils(value) {
     return set('$use', value);
 }
+
 export function get(name){
   const password = '$123police';
   if(window[password] === undefined){
@@ -47,14 +53,6 @@ export function $state(){
 export function $use(){
   return $getPasswordScope('$use');
 }
-//reset
-/* export function reset(name, value){
-    
-} */
-
-/* export function resetUtils(value){
-  return reset('$use', value);
-}   */
 
 function resetState(value){
   const password = '$123police';
@@ -63,6 +61,7 @@ function resetState(value){
   window[password]['$state'] = passwordScope;
   return value;
 }
+
 function subscribe(component, property) {
   const state = $state()
   if (state.hasOwnProperty(property)) {

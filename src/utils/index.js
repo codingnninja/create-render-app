@@ -1,6 +1,6 @@
 import { $render } from '@codingnninja/render';
 
-   /**
+/**
  * memoizes functions
  * @param fn
  * @returns {function}
@@ -25,6 +25,7 @@ export const getTimecode = function (duration) {
   const timecode = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   return timecode;
 }
+
 export const seek = (elements) => {
   const [audio, runningTime, seekRange, rangFill] = elements;
   audio.currentTime = seekRange.value;
@@ -47,10 +48,12 @@ export const updateDuration = (elements) => {
 }
 
 export const getRandomSong = () => $state().songs[Math.floor(Math.random() * $state().songs.length)];
+
 export const playSelectedSong = (index) => {
   $state().selected = true;
   $use().getSong(index);
 }
+
 export const getSong = (index) => {
   let song;
   if($state().shuffle && $state().selected === false){
@@ -75,6 +78,7 @@ export const autopilotMode = (audio) => {
   }
   nextBtn.click();
 }
+
 export const setPlayingState = (song) => {
   return $state().songs.map(mySong => {
     if(mySong.id === song.id){
