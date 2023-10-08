@@ -5,6 +5,10 @@ import {$register} from '@codingnninja/render';
 import { setState, setUtils } from './utils/state';
 import { utils } from './utils';
 import {songs} from './playlist';
+import {htmx} from './utils/htmx';
+
+// const view = htmx('https://jsonplaceholder.typicode.com').view;
+// let a = view('posts/1');
 
 let state = {
   songs,
@@ -17,6 +21,7 @@ let state = {
 
 setUtils(utils);
 setState(state);
+
 export const App = () => {
     return `
       <div id="main">

@@ -1,45 +1,33 @@
-// httpWrapper.js
+import {APIs} from './apis';
+export function htmx(baseUrl, headers){
+  if(typeof baseUrl !== 'string' && isObject(headers)) {
+    throw('baseUrl must be a string and headers an object');
+  }
+  const __baseUrl = baseUrl || 'https://youtoocancode.com';
+  const __headers = headers || {
+    'Content-Type': 'text/html'};
 
-//Todo: still in development
-const apiUrl = 'youtoocancode.com'
-const headers = {
-  'Content-Type': 'application/json',
-  // You can add any additional headers here if needed
-}
-async function makeRequest(url, method, data) {
-  const requestOptions = {
-    method,
-    headers,
-    body: JSON.stringify(data),
+  const apis = APIs(__baseUrl, __headers);
+
+  async function view(route, data) {
+    if(typeof baseUrl !== 'string') {
+      throw('baseUrl must be a string');
+    }
+    const response = !data ? await apis.get(route) : await apis.post(url, payload=data);
+
+    if(typeof response !== 'string'){
+      throw('A string of html is expected');
+    }
+    $render(response => response); 
+  }
+
+  return {
+    view
   };
-
-  const response = await fetch(url, requestOptions);
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Network response was not ok.');
-  }
-
-  return response.json();
 }
-  function $view(route, data) {
-    const url = `${apiUrl}/${route}`;
-    return get(url, payload=data);
-  }
-  function get(route, data) {
-    const url = `${apiUrl}/${route}`;
-    return makeRequest(url, 'GET', payload=data);
-  }
-  function post(route, data) {
-    const url = `${apiUrl}/${route}`;
-    return makeRequest(url, 'POST', payload=data);
-  }
-  function put(route, data) {
-    const url = `${apiUrl}/${route}`;
-    return makeRequest(url, 'PUT', payload=data);
-  }
-  function del(route, id) {
-    const url = `${apiUrl}/${route}/${id}`;
-    return makeRequest(url, 'DELETE');
-  }
 
+function isObject(value){
+  return (
+    typeof value === "object" && value !== null && !Array.isArray(value)
+  );
+};
