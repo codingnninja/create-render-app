@@ -1,11 +1,12 @@
 function globalizeAccessors(){
   if(window.$use || window.$state){
-    return;
+    return false;
   }
   window.$use = $use;
   window.$state = $state;
   window.$resetState = resetState;
   window.$getPasswordScope = get;
+  return true;
 }
 
 export function set(name, value){
@@ -47,9 +48,11 @@ export function get(name){
   const passwordScope = window[password][name];
   return passwordScope;
 }
+
 export function $state(){
   return $getPasswordScope('$state');
 }
+
 export function $use(){
   return $getPasswordScope('$use');
 }
@@ -70,6 +73,7 @@ function subscribe(component, property) {
   state.observers[property].push(component);
   $resetState(state);
 }
+
 export function update(property, value) {
   const state = $state();
   if (state[property] !== value) {
@@ -78,6 +82,7 @@ export function update(property, value) {
     notifyObservers(property);
   }
 }
+
 export function notifyObservers(property) {
   const state = $state();
   if (state.observers[property]) {
@@ -86,6 +91,7 @@ export function notifyObservers(property) {
     });
   }
 }
+
 export function createContext(parentComponent, value){
   const component = parentComponent.name;
   const contextName = component.charAt(0).toLowerCase() + component.slice(1)
@@ -93,6 +99,7 @@ export function createContext(parentComponent, value){
   state[`${contextName}Context`] = value;
   $resetState(state);
 }
+
 export function useContext(parentComponent) {
   const component = parentComponent.name;
   const contextName = component.charAt(0).toLowerCase() + component.slice(1)
