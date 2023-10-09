@@ -32,6 +32,18 @@ export function APIs(baseUrl, headers){
     return response.json();
   }
 
+  async function getComponent(route) {
+    const url = `${__baseUrl}/${route}`;
+    const response = await makeRequest(url, 'GET');
+    return response;
+  }
+
+  async function updateComponent(route, data) {
+    const url = `${__baseUrl}/${route}`;
+    const response = await makeRequest(url, 'POST', payload=data);
+    return response;
+  }
+
   function put(route, data) {
     const url = `${__baseUrl}/${route}`;
     const response = makeRequest(url, 'PUT', payload=data);
@@ -48,7 +60,9 @@ export function APIs(baseUrl, headers){
     get,
     post,
     put,
-    del
+    del,
+    getComponent,
+    updateComponent
   }
 }
   

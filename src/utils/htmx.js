@@ -13,12 +13,15 @@ export function htmx(baseUrl, headers){
     if(typeof baseUrl !== 'string') {
       throw('baseUrl must be a string');
     }
-    const response = !data ? await apis.get(route) : await apis.post(url, payload=data);
 
-    if(typeof response !== 'string'){
+    const response = !data ? await apis.getComponent(route) : await apis.updateComponent(url, payload=data);
+    const htmlString = await response.text();
+
+    if(typeof htmlString !== 'string'){
       throw('A string of html is expected');
     }
-    $render(response => response); 
+
+    $render(htmlString); 
   }
 
   return {
