@@ -2,22 +2,26 @@ export function APIs(baseUrl, headers){
   const __baseUrl = baseUrl || 'https://youtoocancode.com';
   const __headers = headers || {
     'Content-Type': 'application/json'};
+
   async function makeRequest(url, method, data) {
-    
     const requestOptions = {
       method,
       __headers,
       body: JSON.stringify(data),
     };
-
-    const response = !data ? await fetch(url) : await fetch(url, requestOptions);
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Network response was not ok.');
+  
+    try {
+      const response = !data ? await fetch(url) : await fetch(url, requestOptions);
+  
+      if (!response.ok) {
+        const error = await response.json();
+        return error;
+      }
+  
+      return response;
+    } catch (error) {
+      return error;
     }
-
-    return response;
   }
 
   async function get(route) {

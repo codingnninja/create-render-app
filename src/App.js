@@ -36,3 +36,30 @@ export const App = () => {
 
 $register(Player, Playlist, Overlay);
 $render(App);
+
+/* import React from 'react';
+function App() {
+  const [data, setData] = useState('data');
+
+  return (
+    <div>
+      <Header> 
+        <Nav props={data} />
+      </Header>
+      <main>
+        <Hero props={data} />
+        <AdoptionProve props={data} />
+        <Testimonials props={data} />
+        <HowItWorks props={data} />
+        <Features props={data} />
+        <SocialProve props={data} />
+        <Pricing props={data} />
+        <Contacts props={data} />
+        <TrustSignals props={data} />
+        <Faqs props={data} />
+        <IntentPopup props={data} />
+      </main>
+      <Footer />
+    </div>
+  )
+} */

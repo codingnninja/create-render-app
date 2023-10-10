@@ -81,6 +81,7 @@ export function update(property, value) {
     $resetState(state);
     notifyObservers(property);
   }
+  return true;
 }
 
 export function notifyObservers(property) {
