@@ -1,4 +1,4 @@
-import { playSelectedSong } from "../utils";
+import { playSelectedSong } from "../utils/appUtils";
 export const Audio = (song) => {
     return `
       <div id="${song.id}">

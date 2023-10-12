@@ -1,4 +1,4 @@
-import { seek } from "../utils";
+import { seek } from "../utils/appUtils";
 
 export const ProgressIndicator = (song) => {
     return `

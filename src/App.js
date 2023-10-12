@@ -3,7 +3,7 @@ import {Playlist} from './components/Playlist';
 import {Overlay} from './components/Overlay';
 import {$register} from '@codingnninja/render';
 import { setState, setUtils } from './utils/state';
-import { utils } from './utils';
+import { utils } from './utils/appUtils';
 import {songs} from './playlist';
 import {htmx} from './utils/htmx';
 

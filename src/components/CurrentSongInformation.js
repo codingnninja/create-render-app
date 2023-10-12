@@ -1,7 +1,7 @@
 import {SeekControl} from './SeekControl';
 import {Controllers} from './Controllers';
 import { $register, stringify } from '@codingnninja/render';
-import { updateDuration } from '../utils';
+import { updateDuration } from '../utils/appUtils';
 
  export const CurrentSongInformation = (song) => {
     return `
