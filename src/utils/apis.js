@@ -1,5 +1,5 @@
 export function APIs(baseUrl, headers){
-  const __baseUrl = baseUrl || 'https://youtoocancode.com';
+  const __baseUrl = baseUrl || 'https://your-default-domain.com';
   const __headers = headers || {
     'Content-Type': 'application/json'};
 
@@ -48,15 +48,15 @@ export function APIs(baseUrl, headers){
     return response;
   }
 
-  function put(route, data) {
+  async function put(route, data) {
     const url = `${__baseUrl}/${route}`;
-    const response = makeRequest(url, 'PUT', payload=data);
+    const response = await makeRequest(url, 'PUT', payload=data);
     return response.json();
   }
 
-  function del(route, id) {
+  async function del(route, id) {
     const url = `${__baseUrl}/${route}/${id}`;
-    const response = makeRequest(url, 'DELETE');
+    const response = await makeRequest(url, 'DELETE');
     return response.json();
   }
 
@@ -69,4 +69,3 @@ export function APIs(baseUrl, headers){
     updateComponent
   }
 }
-  

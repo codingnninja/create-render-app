@@ -3,7 +3,7 @@ export function htmx(baseUrl, headers){
   if(typeof baseUrl !== 'string' && isObject(headers)) {
     throw('baseUrl must be a string and headers an object');
   }
-  const __baseUrl = baseUrl || 'https://youtoocancode.com';
+  const __baseUrl = baseUrl || 'https://your-default-domain.com';
   const __headers = headers || {
     'Content-Type': 'text/html'};
 
