@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@codingnninja/render": "^1.0.8",
+    "@codingnninja/render": "^0.0.0",
     "ora": "^6.1.2"
   },
   "devDependencies": {

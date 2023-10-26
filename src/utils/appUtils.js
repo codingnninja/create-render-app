@@ -36,9 +36,11 @@ export const seek = (elements) => {
 }
 
 export const updateRunningTime = (song) => {
-  const [playingAudio, playerSeekRange, playerRunningTime] = $select( `#audio-${song.id}, #running-time, #seek-${song.id}`);
+  const [playingAudio, playerSeekRange, rangeFill, playerRunningTime] = $select( `#audio-${song.id}, #running-time, #seek-${song.id},#range-fill`);
   playerSeekRange.value = playingAudio.currentTime;
   playerRunningTime.textContent = $use().getTimecode(playingAudio.currentTime);
+  const rangeValue = (playerSeekRange.value / playerSeekRange.max) * 100;
+  rangeFill.style.width = `${rangeValue}%`;
 }
 
 export const updateDuration = (elements) => {
