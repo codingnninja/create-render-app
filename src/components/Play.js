@@ -3,7 +3,7 @@
 import {stringify} from '@codingnninja/render';
 
  export const Play = (song) => {
-   const [audio] = $select(`#audio-${song.id}`);   
+   const audio = $select(`#audio-${song.id}`);   
    clearInterval($state().playingInterval)
 
     if(audio){
@@ -12,7 +12,7 @@ import {stringify} from '@codingnninja/render';
       song.isPlaying = audio.paused ? false : true; 
       $render(Songs, $use().setPlayingState(song));
       if(song.isPlaying){
-        $state().playingInterval = setInterval(function(){ $use().updateRunningTime(song)}, 900)
+        $state().playingInterval = setInterval(function(){ $use().updateRunningTime(song)}, 900);
       }
     }
 

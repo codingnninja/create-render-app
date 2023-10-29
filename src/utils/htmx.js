@@ -1,7 +1,7 @@
 import {APIs} from './apis';
 export function htmx(baseUrl, headers){
   if(typeof baseUrl !== 'string' && isObject(headers)) {
-    throw('baseUrl must be a string and headers an object');
+    throw('baseUrl must be a string and headers must be an object');
   }
   const __baseUrl = baseUrl || 'https://your-default-domain.com';
   const __headers = headers || {
@@ -10,18 +10,15 @@ export function htmx(baseUrl, headers){
   const apis = APIs(__baseUrl, __headers);
 
   async function view(route, data) {
-    if(typeof baseUrl !== 'string') {
-      throw('baseUrl must be a string');
-    }
-
-    const response = !data ? await apis.getComponent(route) : await apis.updateComponent(url, payload=data);
+    const response = !data ? await apis.get(route) : await apis.post(url, data);
     const htmlString = await response.text();
 
     if(typeof htmlString !== 'string'){
       throw('A string of html is expected');
     }
+    const HtmxView = htmlString => `${htmlString}`;
 
-    $render(htmlString); 
+    $render(HtmxView); 
   }
 
   return {

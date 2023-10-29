@@ -1,3 +1,5 @@
+'use strict'
+
 import { $render } from '@codingnninja/render';
 
 /**
@@ -36,7 +38,7 @@ export const seek = (elements) => {
 }
 
 export const updateRunningTime = (song) => {
-  const [playingAudio, playerSeekRange, rangeFill, playerRunningTime] = $select( `#audio-${song.id}, #running-time, #seek-${song.id},#range-fill`);
+  const [playingAudio, playerSeekRange, playerRunningTime, rangeFill] = $select( `#audio-${song.id}, #seek-${song.id}, #running-time, #range-fill`);
   playerSeekRange.value = playingAudio.currentTime;
   playerRunningTime.textContent = $use().getTimecode(playingAudio.currentTime);
   const rangeValue = (playerSeekRange.value / playerSeekRange.max) * 100;
@@ -72,7 +74,7 @@ export const getSong = (index) => {
 }
 
 export const autopilotMode = (audio) => {
-  const [nextBtn] = $select("#next>button>span");
+  const nextBtn = $select("#next>button>span");
   if($state().repeat) {
     audio.currentTime = 0;
     audio.play(); 

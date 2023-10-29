@@ -3,9 +3,10 @@ export function APIs(baseUrl, headers){
   const __headers = headers || {
     'Content-Type': 'application/json'};
 
-  async function makeRequest(url, method, data) {
+  async function makeRequest(url, data) {
+    const __method = data ? 'POST' : 'GET';
     const requestOptions = {
-      method,
+      __method,
       __headers,
       body: JSON.stringify(data),
     };
@@ -26,46 +27,18 @@ export function APIs(baseUrl, headers){
 
   async function get(route) {
     const url = `${__baseUrl}/${route}`;
-    const response = await makeRequest(url, 'GET');
-    return response.json();
+    const response = await makeRequest(url);
+    return response;
   }
 
   async function post(route, data) {
     const url = `${__baseUrl}/${route}`;
-    const response = await makeRequest(url, 'POST', payload=data);
-    return response.json();
-  }
-
-  async function getComponent(route) {
-    const url = `${__baseUrl}/${route}`;
-    const response = await makeRequest(url, 'GET');
+    const response = await makeRequest(url, data);
     return response;
-  }
-
-  async function updateComponent(route, data) {
-    const url = `${__baseUrl}/${route}`;
-    const response = await makeRequest(url, 'POST', payload=data);
-    return response;
-  }
-
-  async function put(route, data) {
-    const url = `${__baseUrl}/${route}`;
-    const response = await makeRequest(url, 'PUT', payload=data);
-    return response.json();
-  }
-
-  async function del(route, id) {
-    const url = `${__baseUrl}/${route}/${id}`;
-    const response = await makeRequest(url, 'DELETE');
-    return response.json();
   }
 
   return {
     get,
-    post,
-    put,
-    del,
-    getComponent,
-    updateComponent
+    post
   }
 }
