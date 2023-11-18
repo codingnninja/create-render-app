@@ -10,9 +10,9 @@ import {stringify} from '@codingnninja/render';
       audio.volume = $state().volume ? $state().volume : 1;
       audio.paused ? audio.play() : audio.pause();
       song.isPlaying = audio.paused ? false : true; 
-      $render(Songs, $use().setPlayingState(song));
+      $render(Songs, $utils().setPlayingState(song));
       if(song.isPlaying){
-        $state().playingInterval = setInterval(function(){ $use().updateRunningTime(song)}, 900);
+        $state().playingInterval = setInterval(function(){ $utils().updateRunningTime(song)}, 900);
       }
     }
 

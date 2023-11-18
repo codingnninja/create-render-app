@@ -27,11 +27,10 @@ export const getTimecode = function (duration) {
   const timecode = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   return timecode;
 }
-
 export const seek = (elements) => {
   const [audio, runningTime, seekRange, rangFill] = elements;
   audio.currentTime = seekRange.value;
-  runningTime.textContent = $use().getTimecode(seekRange.value);
+  runningTime.textContent = $utils().getTimecode(seekRange.value);
 
   const rangeValue = (seekRange.value / seekRange.max) * 100;
   rangFill.style.width = `${rangeValue}%`;
@@ -40,7 +39,7 @@ export const seek = (elements) => {
 export const updateRunningTime = (song) => {
   const [playingAudio, playerSeekRange, playerRunningTime, rangeFill] = $select( `#audio-${song.id}, #seek-${song.id}, #running-time, #range-fill`);
   playerSeekRange.value = playingAudio.currentTime;
-  playerRunningTime.textContent = $use().getTimecode(playingAudio.currentTime);
+  playerRunningTime.textContent = $utils().getTimecode(playingAudio.currentTime);
   const rangeValue = (playerSeekRange.value / playerSeekRange.max) * 100;
   rangeFill.style.width = `${rangeValue}%`;
 }
@@ -48,14 +47,14 @@ export const updateRunningTime = (song) => {
 export const updateDuration = (elements) => {
   const [audio, playerSeekRange, playerDuration] = elements;
   playerSeekRange.max = Math.ceil(audio.duration);
-  playerDuration.textContent = $use().getTimecode(Number(playerSeekRange.max));
+  playerDuration.textContent = $utils().getTimecode(Number(playerSeekRange.max));
 }
 
 export const getRandomSong = () => $state().songs[Math.floor(Math.random() * $state().songs.length)];
 
 export const playSelectedSong = (index) => {
   $state().selected = true;
-  $use().getSong(index);
+  $utils().getSong(index);
 }
 
 export const getSong = (index) => {

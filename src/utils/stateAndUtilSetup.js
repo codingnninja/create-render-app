@@ -1,8 +1,8 @@
 function globalizeAccessors(){
-  if(window.$use || window.$state){
+  if(window.$utils || window.$state){
     return false;
   }
-  window.$use = $use;
+  window.$utils = $utils;
   window.$state = $state;
   window.$resetState = resetState;
   window.$getPasswordScope = get;
@@ -37,7 +37,7 @@ export function setState(value) {
 }
 
 export function setUtils(value) {
-    return set('$use', value);
+    return set('$utils', value);
 }
 
 export function get(name){
@@ -53,8 +53,8 @@ export function $state(){
   return $getPasswordScope('$state');
 }
 
-export function $use(){
-  return $getPasswordScope('$use');
+export function $utils(){
+  return $getPasswordScope('$utils');
 }
 
 function resetState(value){
@@ -65,12 +65,18 @@ function resetState(value){
   return value;
 }
 
-function subscribe(component, property) {
+function subscribe(components, property) {
   const state = $state()
   if (state.hasOwnProperty(property)) {
     state.observers[property] = [];
   }
-  state.observers[property].push(component);
+
+  if(Array.isArray(components)){
+    components.map(component => state.observers[property].push(component));
+  } else {
+    state.observers[property].push(components);//component(s)
+  }
+  
   $resetState(state);
 }
 

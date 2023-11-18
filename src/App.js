@@ -2,13 +2,13 @@ import {Player} from './components/Player';
 import {Playlist} from './components/Playlist';
 import {Overlay} from './components/Overlay';
 import {$register} from '@codingnninja/render';
-import { setState, setUtils } from './utils/state';
+import { setState, setUtils } from './utils/stateAndUtilSetup';
 import { utils } from './utils/appUtils';
 import {songs} from './playlist';
-import {htmx} from './utils/htmx';
+import {htmx} from './utils/hypermedia';
 
-// const view = htmx('https://jsonplaceholder.typicode.com').view;
-// let a = view('posts/1');
+const $view = htmx('https://jsonplaceholder.typicode.com').$view;
+let a = $view('posts/1');
 
 let state = {
   songs,

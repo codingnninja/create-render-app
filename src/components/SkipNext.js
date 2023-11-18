@@ -7,7 +7,7 @@ export const Next = (song) => {
       <button class="btn-icon">
         <span 
           class="material-symbols-rounded"
-          onclick="$use().getSong(${index + 1})"
+          onclick="$utils().getSong(${index + 1})"
         >skip_next</span>
       </button>
     </div>

@@ -5,7 +5,7 @@ import { updateDuration } from '../utils/appUtils';
 
  export const CurrentSongInformation = (song) => {
     return `
-      <audio src=${song.musicPath} id="audio-${song.id}" data-id="${song.id}" onEnded="$use().autopilotMode(this, '${stringify(song)}')" onloadeddata="$trigger(${updateDuration}, '#audio-${song.id},#seek-${song.id}, #duration')"></audio>
+      <audio src=${song.musicPath} id="audio-${song.id}" data-id="${song.id}" onEnded="$utils().autopilotMode(this, '${stringify(song)}')" onloadeddata="$trigger(${updateDuration}, '#audio-${song.id},#seek-${song.id}, #duration')"></audio>
       <figure class="music-banner">
         <img
           src="${song.posterUrl}"

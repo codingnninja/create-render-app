@@ -1,6 +1,6 @@
 {
   "name": "create-render-app",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "bin": {
     "create-render-app": "bin/install.mjs"
@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@codingnninja/render": "^0.0.0",
+    "@codingnninja/render": "^0.0.4",
     "ora": "^6.1.2"
   },
   "devDependencies": {

@@ -9,7 +9,7 @@ export function htmx(baseUrl, headers){
 
   const apis = APIs(__baseUrl, __headers);
 
-  async function view(route, data) {
+  async function $view(route, data) {
     const response = !data ? await apis.get(route) : await apis.post(url, data);
     const htmlString = await response.text();
 
@@ -22,7 +22,7 @@ export function htmx(baseUrl, headers){
   }
 
   return {
-    view
+    $view
   };
 }
 
