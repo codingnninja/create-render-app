@@ -1,38 +1,68 @@
-import {Player} from './components/Player';
-import {Playlist} from './components/Playlist';
-import {Overlay} from './components/Overlay';
-import {$register} from '@codingnninja/render';
+import { Player } from './components/Player';
+import { Playlist } from './components/Playlist';
+import { Overlay } from './components/Overlay';
+import { $register, $select } from '@codingnninja/render';
 import { setState, setUtils } from './utils/stateAndUtilSetup';
 import { utils } from './utils/appUtils';
-import {songs} from './playlist';
-import {htmx} from './utils/hypermedia';
+import { songs } from './playlist';
 
-const $view = htmx('https://jsonplaceholder.typicode.com').$view;
-let a = $view('posts/1');
-
-let state = {
+const state = {
+  played: false,
   songs,
-  shuffle: false,
-  repeat: false,
   selected: false,
-  volume: 0,
-  playingInterval: null,
-}
+  repeat: false,
+  shuffle: null,
+  volume: null,
+  range: {
+    start: 0,
+    end: 300
+  },
+  playingInterval: null
+};
 
 setUtils(utils);
 setState(state);
 
-export const App = () => {
-    return `
-      <div id="main">
-        <article>
-            <Player />
-            <Playlist />
-            <Overlay />
-        </article>
+const Header = ({ toggle }) => {
+  return `
+    <div class="top-bar wrapper">
+      <!--navbar-->
+      <div class="logo wrapper">
+        <h1 class="title-lg">LovePlay</h1>
       </div>
-    `;
-  }
+      <!--music list-->
+      <div class="top-bar-actions">
+        <button class="btn-icon" onclick="$trigger(${toggle})">
+          <span class="material-symbols-rounded">filter_list</span>
+        </button>
+      </div>
+    </div>
+  `;
+};
+export const App = ({ songs }) => {
+  const toggle = (event) => {
+    event && event.preventDefault();
+    const [playlist, overlay] = $select('#playlist, .overlay');
+    if (playlist.classList.contains('active')) {
+      playlist.classList.remove('active');
+      overlay.classList.remove('active');
+    } else {
+      playlist.classList.add('active');
+      overlay.classList.add('active');
+    }
+  };
 
-$register(Player, Playlist, Overlay);
-$render(App);
+  return `
+    <div id="main">
+      <Header toggle="${toggle}" />
+        <article>
+          <Playlist songs={songs} />
+          <Player songs={songs} />
+          <Overlay toggle=${toggle} />
+        </article>
+    </div>
+  `;
+};
+
+$register(Player, Playlist, Overlay, Header);
+// make sure render remove comments from html and js functions;

@@ -1,13 +1,13 @@
-export const Next = (song) => {
-  //make sure a component is not calling itself.
+import { $state } from '../utils/stateAndUtilSetup';
+export const Next = ({ song }) => {
+  // make sure a component is not calling itself.
   $state().selected = false;
-  const index = song.id - 1;
   return `
     <div id="next">
       <button class="btn-icon">
         <span 
           class="material-symbols-rounded"
-          onclick="$utils().getSong(${index + 1})"
+          onclick="$utils().getSong(${song.id})"
         >skip_next</span>
       </button>
     </div>

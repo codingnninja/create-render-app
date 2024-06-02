@@ -1,32 +1,29 @@
 export const songs = [
   {
-    id:1,
-    backgroundImage: "assets/images/calm-down.jpg",
-    posterUrl: "assets/images/calm-down.png",
-    title: "Calm Down",
-    album: "Audio",
+    id: 1,
+    posterUrl: '/assets/images/calm-down.png',
+    title: 'Calm Down',
+    album: 'Audio',
     year: 2023,
-    artist: "Rema ft Gomez",
-    musicPath: "https://cdn.tunezjam.com/video/Rema-Ft-Selena-Gomez-Calm-Down-Video-(TunezJam.com).mp4",
+    artist: 'Rema ft Gomez',
+    musicPath: '/assets/music/local-music-2.mp3'
   },
   {
-    id:2,
-    backgroundImage: "assets/images/local-poster-2.jpg",
-    posterUrl: "assets/images/lonely-at-the-top.jpg",
-    title: "Lonely at the top ",
-    album: "Audio",
+    id: 2,
+    posterUrl: '/assets/images/lonely-at-the-top.jpg',
+    title: 'Lonely at the top ',
+    album: 'Audio',
     year: 2023,
-    artist: "Asake",
-    musicPath: "https://cdn.trendybeatz.com/audio/Asake-Lonely-At-The-Top-(TrendyBeatz.com).mp3",
+    artist: 'Asake',
+    musicPath: '/assets/music/local-music-1.mp3'
   },
   {
-    id:3,
-    backgroundImage: "assets/images/unavailable.jpg",
-    posterUrl: "./assets/images/unavailable.jpg",
-    title: "Unavailable",
-    album: "Audio",
+    id: 3,
+    posterUrl: './assets/images/unavailable.jpg',
+    title: 'Unavailable',
+    album: 'Audio',
     year: 2023,
-    artist: "Davido ft Musa",
-    musicPath: "https://cdn.trendybeatz.com/audio/Davido-Ft-Musa-Keys-Unavailable-New-Song-(TrendyBeatz.com).mp3",
+    artist: 'Davido ft Musa',
+    musicPath: './assets/music/local-music-3.mp3'
   }
 ];

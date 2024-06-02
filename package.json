@@ -1,22 +1,37 @@
 {
   "name": "create-render-app",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "bin": {
     "create-render-app": "bin/install.mjs"
   },
   "scripts": {
+    "prerender": "node --no-warnings --loader ./esm-loader.js ssr.js && vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "rm -rf ./dist",
+    "bundle": "npm run clean && rollup -c"
   },
   "dependencies": {
-    "@codingnninja/render": "^0.0.4",
+    "@codingnninja/render": "^0.0.16",
     "ora": "^6.1.2"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.1.1",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "esbuild-plugin-polyfill-node": "^0.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "globals": "^15.0.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "vite": "^4.4.5"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

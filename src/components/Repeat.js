@@ -1,4 +1,5 @@
-export const Repeat = (status=false) => {
+import { $state } from '../utils/stateAndUtilSetup';
+export const Repeat = (status = false) => {
   const state = $state();
   state.update('repeat', status);
 
@@ -14,4 +15,4 @@ export const Repeat = (status=false) => {
       </button>
     </div>
   `;
-}
+};

@@ -1,14 +1,11 @@
-import {Songs} from './Songs';
-import { $register, stringify } from '@codingnninja/render';
-import { songs } from '../playlist';
-
-export const Playlist = () => {
-    return `
+import { Songs } from './Songs';
+import { $register } from '@codingnninja/render';
+export const Playlist = ({ songs }) => {
+  return `
         <div class="playlist" id="playlist">
-            <Songs mySongs=${stringify(songs)}/>
+            <Songs songs={songs}/>
         </div>
     `;
 }
 
 $register(Songs);
-

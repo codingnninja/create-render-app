@@ -1,11 +1,18 @@
-import {SeekControl} from './SeekControl';
-import {Controllers} from './Controllers';
+import { SeekControl } from './SeekControl';
+import { Controllers } from './Controllers';
 import { $register, stringify } from '@codingnninja/render';
-import { updateDuration } from '../utils/appUtils';
 
- export const CurrentSongInformation = (song) => {
-    return `
-      <audio src=${song.musicPath} id="audio-${song.id}" data-id="${song.id}" onEnded="$utils().autopilotMode(this, '${stringify(song)}')" onloadeddata="$trigger(${updateDuration}, '#audio-${song.id},#seek-${song.id}, #duration')"></audio>
+export const CurrentSongInformation = ({ song }) => {
+  return `
+      <audio src="${song.musicPath}" id="audio-${song.id}" data-id="${song.id}" onEnded="$utils().autopilotMode(this, '${stringify(song)}')" onloadeddata="const showLoadedData = () => {
+        if(document.readyState === 'complete'){
+          
+        } else {
+          document.addEventListener('DOMContentLoaded', () => {
+            $trigger($utils().updateDuration, '#audio-${song.id},#seek-${song.id}, #seek-right-${song.id}, #duration')
+          })
+        }
+      }; showLoadedData()"></audio>
       <figure class="music-banner">
         <img
           src="${song.posterUrl}"
@@ -31,6 +38,5 @@ import { updateDuration } from '../utils/appUtils';
         <Controllers song=${stringify(song)} />
       </div>
     `;
-  }
-
-  $register(SeekControl, Controllers);
+};
+$register(SeekControl, Controllers);

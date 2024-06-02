@@ -9,17 +9,34 @@ import ora from "ora";
 const exec = promisify(cp.exec);
 const rm = promisify(fs.rm);
 
+const repoUser = 'https://github.com/codingnninja';
+const projectName = process.argv[2];
+const projectType = process.argv[3];
+const currentPath = process.cwd();
+const projectPath = path.join(currentPath, projectName);
+
+const templates = {
+  '--typescript': `${repoUser}/create-render-app-ts.git`,
+  '--music-player': `${repoUser}/create-render-app.git`,
+  '--vanilla': `${repoUser}/create-render-app-js.git`,
+  '--component': `${repoUser}/create-render-app.git`
+};
+
+const git_repo = projectType ? templates[projectType] : templates['--music-player'] ;
+
 if (process.argv.length < 3) {
-  console.log("You have to provide a name to your app.");
-  console.log("For example :");
-  console.log("    npx create-render-app my-app");
+  console.log("You have to provide a name for your app.");
+  console.log("    For example:");
+  console.log("        npx create-render-app my-app-name");
   process.exit(1);
 }
 
-const projectName = process.argv[2];
-const currentPath = process.cwd();
-const projectPath = path.join(currentPath, projectName);
-const git_repo = "https://github.com/codingnninja/create-render-app.git";
+if(process.argv[2].startsWith('--') || (process.argv[3] && !process.argv[3].startsWith('--'))){
+  console.log("A wrong command executed.");
+  console.log("    Below is a valid command:");
+  console.log("         npx create-render-app my-app-name --music-player");
+  process.exit(1);
+}
 
 if (fs.existsSync(projectPath)) {
   console.log(`The file ${projectName} already exist in the current directory, please give it another name.`);
@@ -32,7 +49,12 @@ else {
 try {
   const gitSpinner = ora("Downloading files...").start();
   // clone the repo into the project folder -> creates the new boilerplate
-  await exec(`git clone --depth 1 ${git_repo} ${projectPath} --quiet`);
+  if(projectType === '--component'){
+    await exec(`git archive --remote=${templates[projectType]} branch:bin/templates/${projectName}.js | tar -x -C ${path.join(currentPath, '/src/components')}`);
+  } else {
+    await exec(`git clone --depth 1 ${git_repo} ${projectPath} --quiet`);
+  }
+  
   gitSpinner.succeed();
 
   const cleanSpinner = ora("Removing useless files").start();
@@ -61,3 +83,4 @@ try {
   fs.rmSync(projectPath, { recursive: true, force: true });
   console.log(error);
 }
+

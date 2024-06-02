@@ -1,14 +1,11 @@
-import {CurrentSongInformation} from './CurrentSongInformation';
+import { CurrentSongInformation } from './CurrentSongInformation';
 import { $register, stringify } from '@codingnninja/render';
-import { songs } from '../playlist';
 
-export const CurrentSong = (currentSong) => {
-  const song = currentSong ? currentSong : songs[0];
+export const CurrentSong = ({ song }) => {
   return `
     <div class="container" id="playing-song">
       <CurrentSongInformation song=${stringify(song)}/>
     </div>
   `;
-}
-
-$register(CurrentSongInformation)
+};
+$register(CurrentSongInformation);

@@ -1,4 +1,4 @@
-export const Previous = (song) => {
+export const Previous = ({ song }) => {
   const index = song.id - 1;
   return `
     <button class="btn-icon">
